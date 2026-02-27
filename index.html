@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketPulse Live • Joe's Hong Kong Market Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .tradingview-widget-container { width: 100% !important; }
+        .card-hover { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .card-hover:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100">
+    <div class="max-w-screen-2xl mx-auto">
+        <!-- HEADER - Building your Market Live Dashboard -->
+        <header class="bg-black border-b border-zinc-800 px-8 py-5 flex items-center justify-between sticky top-0 z-50">
+            <div class="flex items-center gap-x-4">
+                <div class="text-3xl font-bold tracking-tighter bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">MARKETPULSE</div>
+                <div class="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-xs font-medium rounded-full flex items-center gap-x-1">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    LIVE
+                </div>
+            </div>
+            <div class="flex items-center gap-x-8 text-sm font-medium">
+                <div class="flex items-center gap-x-2 text-emerald-400">
+                    <span class="text-zinc-400">HONG KONG TIME</span>
+                    <span id="hk-time" class="font-mono tabular-nums"></span>
+                </div>
+                <a href="https://www.tradingview.com" target="_blank" class="text-zinc-400 hover:text-white transition">Powered by TradingView</a>
+            </div>
+        </header>
+
+        <!-- TICKER TAPE - Live scrolling indices & stocks -->
+        <div class="bg-zinc-900 border-b border-zinc-800 py-3">
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+                {
+                  "symbols": [
+                    {"proName": "FOREXCOM:DJI", "description": "Dow Jones"},
+                    {"proName": "FOREXCOM:SPXUSD", "description": "S&P 500"},
+                    {"proName": "FOREXCOM:NSXUSD", "description": "Nasdaq"},
+                    {"proName": "TVC:HSI", "description": "Hang Seng"},
+                    {"proName": "TVC:NIKKEI", "description": "Nikkei 225"},
+                    {"proName": "TVC:SHANGHAI", "description": "Shanghai"},
+                    {"proName": "NASDAQ:AAPL", "description": "Apple"},
+                    {"proName": "NASDAQ:NVDA", "description": "Nvidia"}
+                  ],
+                  "showSymbolLogo": true,
+                  "colorTheme": "dark",
+                  "isTransparent": true,
+                  "displayMode": "compact",
+                  "locale": "en"
+                }
+                </script>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <div class="flex items-end justify-between mb-8">
+                <div>
+                    <h1 class="text-5xl font-bold tracking-tighter">Live Market News & Indices</h1>
+                    <p class="text-zinc-400 mt-2 text-lg">Real-time data pulled directly from the internet • Updated every second • Built for you, Joe</p>
+                </div>
+                <div class="text-right text-xs text-zinc-500">
+                    Hong Kong • February 28, 2026<br>
+                    <span class="text-emerald-400">All markets open or closing soon</span>
+                </div>
+            </div>
+
+            <!-- MARKET OVERVIEW WIDGET - Live indices grid -->
+            <div class="mb-12">
+                <h2 class="text-xl font-semibold mb-4 flex items-center gap-3">
+                    🌍 Major Indices Overview
+                    <span class="text-xs px-3 py-1 bg-zinc-800 rounded-full text-zinc-400">US • Asia</span>
+                </h2>
+                <div class="tradingview-widget-container rounded-3xl overflow-hidden border border-zinc-800 shadow-2xl">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+                    {
+                      "colorTheme": "dark",
+                      "dateRange": "1D",
+                      "showChart": true,
+                      "locale": "en",
+                      "largeChartUrl": "",
+                      "isTransparent": true,
+                      "tabs": [
+                        {
+                          "title": "Major Indices",
+                          "symbols": [
+                            {"s": "FOREXCOM:DJI", "d": "Dow Jones Industrial Average"},
+                            {"s": "FOREXCOM:SPXUSD", "d": "S&P 500"},
+                            {"s": "FOREXCOM:NSXUSD", "d": "Nasdaq Composite"},
+                            {"s": "TVC:HSI", "d": "Hang Seng Index"},
+                            {"s": "TVC:NIKKEI", "d": "Nikkei 225"},
+                            {"s": "TVC:SHANGHAI", "d": "Shanghai Composite"}
+                          ]
+                        }
+                      ]
+                    }
+                    </script>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <!-- INTERACTIVE CHART -->
+                <div class="lg:col-span-8 bg-zinc-900 rounded-3xl p-6 border border-zinc-800">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-3">
+                        📈 S&P 500 Live Chart (Interactive)
+                    </h2>
+                    <div class="tradingview-widget-container h-[520px] rounded-2xl overflow-hidden">
+                        <div class="tradingview-widget-container__widget h-full"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                        {
+                          "symbol": "FOREXCOM:SPXUSD",
+                          "interval": "5",
+                          "theme": "dark",
+                          "style": "1",
+                          "locale": "en",
+                          "hide_top_toolbar": false,
+                          "hide_legend": false,
+                          "save_image": true,
+                          "container_id": "advanced-chart"
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- TOP STORIES NEWS WIDGET - Live news pulled from internet -->
+                <div class="lg:col-span-4 bg-zinc-900 rounded-3xl p-6 border border-zinc-800 flex flex-col">
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-3">
+                        📰 Top Market News
+                        <span class="text-xs px-3 py-1 bg-amber-500/10 text-amber-400 rounded-full">LIVE</span>
+                    </h2>
+                    <div class="tradingview-widget-container flex-1">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                        {
+                          "feedMode": "all_symbols",
+                          "isTransparent": true,
+                          "displayMode": "regular",
+                          "colorTheme": "dark",
+                          "locale": "en"
+                        }
+                        </script>
+                    </div>
+                    <div class="text-[10px] text-zinc-500 mt-4 text-center">Breaking financial news • Powered by TradingView</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="bg-black border-t border-zinc-800 px-8 py-8 text-center text-xs text-zinc-500">
+            Your personal Live Market News & Indices Dashboard • Built in 2026 for Joe in Hong Kong • 
+            Data pulled live from the internet via TradingView • For informational use only • Not financial advice
+            <div class="mt-4 text-emerald-400 text-[10px]">Refresh page or leave open — everything updates automatically</div>
+        </footer>
+    </div>
+
+    <!-- Live Hong Kong clock -->
+    <script>
+        function updateHKTime() {
+            const now = new Date();
+            const hkTime = now.toLocaleString('en-HK', { 
+                timeZone: 'Asia/Hong_Kong', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: false 
+            });
+            document.getElementById('hk-time').textContent = hkTime;
+        }
+        setInterval(updateHKTime, 1000);
+        updateHKTime();
+
+        // Tailwind script already loaded via CDN
+        console.log('%c✅ MarketPulse Live Dashboard ready! All indices and news are pulling live data from the internet.', 'color:#22c55e; font-family:monospace');
+    </script>
+</body>
+</html>
